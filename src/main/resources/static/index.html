@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Release script(s)</title>
+    <meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
+    <link rel="stylesheet" type="text/css" media="all" href="../css/index.css"/>
+</head>
+<html>
+
+<body>
+
+<div align="left">
+    <form method="POST" enctype="multipart/form-data" action="/FileUploader/upload">
+        <div class="required">
+            <label>File to upload:</label>
+            <input type="file" name="file" required="required" autofocus>
+        </div>
+        </br></br>
+        <div class="required">
+            <label>Script(s) category:</label>
+            <select id="folder" name="folder" required>
+
+                <option selected disabled value="">choose</option>
+                <option value="OBUSchema">OBU schema scripts</option>
+                <option value="SRO">LOV/SUM scripts</option>
+                <option value="docs">Documents</option>
+                <option value="other">Other</option>
+            </select>
+        </div>
+        <br>
+
+        <div class="optional"><br><label>Issue(s) number(s) (Sharepoint):</label><input type="text"
+                                                                                        placeholder="Ex:1234;1234_5678"
+                                                                                        name="issue_no"
+                                                                                        pattern="^(\d+)(_*\d+)*"
+                                                                                        title="Issue(s) number(s) [no whitespaces, delimiter: underscore] (Ex:1234;1234_5678_9012)">
+        </div>
+        <div class="optional"><br><label>Ticket(s) number(s) (SRO/OFU):</label><input type="text"
+                                                                                      placeholder="Ex:SRO1234"
+                                                                                      name="ticket_no"
+                                                                                      pattern="^((OFU|SRO)[0-9]{1,4})(_*(OFU|SRO)[0-9]{1,4})*"
+                                                                                      title="JET-CM ticket(s) number(s) [no whitespaces, delimiter: underscore] (Ex:SRO1234;OFU1234;OFU1234_OFU5678)"><br>
+        </div>
+
+        <font size="2">
+            (*) mandatory fields. All fields should be filled<br>
+            (?) optional fields. At least one field should be filled</font>
+        <br><br>
+        <input type="submit" value="Upload"> Press here to upload the file!
+    </form>
+</div>
+</body>
+</html>

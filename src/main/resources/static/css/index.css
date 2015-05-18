@@ -1,0 +1,16 @@
+        .required label {
+        font-weight: bold;
+        }
+        .required label:after {
+        color: #e32;
+        content: ' *';
+        display:inline;
+        }
+        .optional label {
+        font-weight: bold;
+        }
+        .optional label:after {
+        color: #e32;
+        content: ' (?)';
+        display:inline;
+        }
