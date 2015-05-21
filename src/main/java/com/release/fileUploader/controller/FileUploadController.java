@@ -36,8 +36,8 @@ public class FileUploadController {
             @RequestParam("folder")String folder,
             @RequestParam("issue_no")String issueNumber,
             @RequestParam("ticket_no")String ticketNumber,
-            @RequestParam("releaseNameExists")Boolean specifyReleaseName,
-            @RequestParam("releaseList")String releaseName,
+            @RequestParam(value = "releaseNameExists", defaultValue = "false")Boolean specifyReleaseName,
+            @RequestParam(value = "releaseList", defaultValue = "")String releaseName,
             @RequestParam("file") MultipartFile file){
 
         fileName="";
@@ -66,7 +66,7 @@ public class FileUploadController {
             }
         }
         if(specifyReleaseName==true && !releaseName.equals("") && releaseName!=null){
-            fileName=new StringBuilder().append(releaseName).append("\\").append(upload_folder).toString();
+            upload_folder=new StringBuilder().append(upload_folder).append("\\").append(releaseName).append("\\").toString();
         }
         if (!file.isEmpty()) {
             logger.debug("upload_folder: "+upload_folder+" folder: "+folder+" fileName"+fileName+" file(.getOriginalFilename): "+file.getOriginalFilename());
