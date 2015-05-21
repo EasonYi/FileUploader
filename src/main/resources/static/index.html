@@ -4,7 +4,8 @@
 <head>
     <title>Release script(s)</title>
     <meta http-equiv="content-type" content="text/html; charset=windows-1251"/>
-    <link rel="stylesheet" type="text/css" media="all" href="css/index.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="/FileUploader/css/index.css"/>
+    <script type="text/JavaScript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 </head>
 <html>
 
@@ -29,7 +30,6 @@
             </select>
         </div>
         <br>
-
         <div class="optional"><br><label>Issue(s) number(s) (Sharepoint):</label><input type="text"
                                                                                         placeholder="Ex:1234;1234_5678"
                                                                                         name="issue_no"
@@ -42,13 +42,38 @@
                                                                                       pattern="^((OFU|SRO)[0-9]{1,4})(_*(OFU|SRO)[0-9]{1,4})*"
                                                                                       title="JET-CM ticket(s) number(s) [no whitespaces, delimiter: underscore] (Ex:SRO1234;OFU1234;OFU1234_OFU5678)"><br>
         </div>
-
         <font size="2">
             (*) mandatory fields. All fields should be filled<br>
             (?) optional fields. At least one field should be filled</font>
         <br><br>
+        <div><input type="checkbox" id="releaseNameExists" name="releaseNameExists"/><label>I want to specify the release name </label><select id="releaseList" name="releaseList" disabled><option selected disabled value="">choose</option></select></div>
+        <br>
         <input type="submit" value="Upload"> Press here to upload the file!
     </form>
 </div>
+
 </body>
+<script type="text/JavaScript">
+    //get a reference to the select element
+    var $select = $('#releaseList');
+
+    //request the JSON data and parse into the select element
+    $.getJSON('/FileUploader/data/releaseList.json', function(data){
+
+      //clear the current content of the select
+      $select.html('');
+
+      $select.append('<option selected disabled value="">choose</option>');
+      //iterate over the data and append a select option
+      $.each(data.releaseList, function(key, val){
+        $select.append('<option id="' + val.id + '">' + val.name + '</option>');
+      })
+    });
+  </script>
+<script type="text/JavaScript">
+document.getElementById('releaseNameExists').onchange = function() {
+    document.getElementById('releaseList').disabled = !this.checked;
+};
+  </script>
+
 </html>

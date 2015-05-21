@@ -33,9 +33,11 @@ public class FileUploadController {
 
     @RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(
-            @RequestParam("folder") String folder,
+            @RequestParam("folder")String folder,
             @RequestParam("issue_no")String issueNumber,
             @RequestParam("ticket_no")String ticketNumber,
+            @RequestParam("releaseNameExists")Boolean specifyReleaseName,
+            @RequestParam("releaseList")String releaseName,
             @RequestParam("file") MultipartFile file){
 
         fileName="";
@@ -62,6 +64,9 @@ public class FileUploadController {
             else {
                 appendList= Collections.emptyList();
             }
+        }
+        if(specifyReleaseName==true && !releaseName.equals("") && releaseName!=null){
+            fileName=new StringBuilder().append(releaseName).append("\\").append(upload_folder).toString();
         }
         if (!file.isEmpty()) {
             logger.debug("upload_folder: "+upload_folder+" folder: "+folder+" fileName"+fileName+" file(.getOriginalFilename): "+file.getOriginalFilename());
