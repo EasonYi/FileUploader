@@ -45,7 +45,10 @@ public class FileTools implements IFileTools {
     public String fileUploader(String root, String folder, String filename, MultipartFile file){
         //check filename
         if(filename.isEmpty() || filename.equals("") || filename==null){
-            filename=file.getOriginalFilename();
+            /*for IE*/
+            File originFileName = new File (file.getOriginalFilename());
+            filename =  originFileName.getName().toString();
+
             logger.debug("filename empty, get original file: "+filename);
         }
 
@@ -63,7 +66,8 @@ public class FileTools implements IFileTools {
 
             return "You successfully uploaded " + file.getOriginalFilename() + "!";
         } catch (Exception e) {
-            return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage();
+            return "You failed to upload " + file.getOriginalFilename() + " => " + e.getMessage()+"\n debug info: \n"
+                    +"root: "+root+" folder: "+folder+" filename: "+filename;
         }
     }
 }
